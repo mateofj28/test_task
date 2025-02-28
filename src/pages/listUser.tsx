@@ -27,6 +27,7 @@ const ListUser: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchWord, setSearchWord] = useState("");
     const [modalData, setModalData] = useState(instruccions);
+    const [checkBox, setCheckBox] = useState(Boolean);
     const [completeList, setCompleteList] = useState<Task[]>(initialTasks);
 
     const showModal = () => {
@@ -104,9 +105,10 @@ const ListUser: React.FC = () => {
         initialTasks.forEach(task => {
             if (task.key === record.key) {
                 task.state = value ? "Completed" : "Pending"; // Modificamos directamente el array
+                // setCheckBox( value ? true : false )
             }
         });
-
+        
         setTask(initialTasks);
     };
 
@@ -126,7 +128,7 @@ const ListUser: React.FC = () => {
             key: 'actions',
             render: (_: any, record: Task) => (
                 <Space>
-                    <Checkbox onChange={(e) => handleCheckBox(record, e.target.checked)}>
+                    <Checkbox checked={record.state === "Completed"}  onChange={(e) => handleCheckBox(record, e.target.checked)}>
                     </Checkbox>
                     <Button type="primary" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
                         Edit
